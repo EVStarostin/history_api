@@ -10,10 +10,12 @@ function handleDOMContentLoaded() {
 
 class Modal {
     constructor() {
-        this.node = document.getElementById('modal');
-        this.backdrop = document.createElement('div');
-        this.backdrop.className = 'modal__backdrop';
-        this.closeElements = this.node.getElementsByClassName('modal__close');
+        this._element = document.getElementById('modal');
+        this._backdrop = document.createElement('div');
+        this._backdrop.className = 'modal__backdrop';
+        this._closeElements = this._element.getElementsByClassName('modal__close');
+
+        this._handleFocusLock = this._handleFocusLock.bind(this);
 
         this.init();
     }
@@ -33,47 +35,57 @@ class Modal {
             }
         }
 
-        for (let i = 0; i < this.closeElements.length; i++) {
-            const element = this.closeElements[i];
+        for (let i = 0; i < this._closeElements.length; i++) {
+            const element = this._closeElements[i];
             element.addEventListener('click', handleCloseElementsClick);
         }
 
-        this.node.addEventListener('click', handleBackdropClick);
+        this._element.addEventListener('click', handleBackdropClick);
     }
 
     open() {
         const handleModalShowing = () => {
-            this.node.style.display = 'block';
+            this._element.style.display = 'block';
             document.body.offsetHeight; // force repaint
-            this.node.classList.add('modal--show');
-            this.backdrop.removeEventListener('transitionend', handleModalShowing);
+            this._element.focus();
+            this._element.classList.add('modal--show');
+            this._backdrop.removeEventListener('transitionend', handleModalShowing);
         };
 
+        document.addEventListener('focus', this._handleFocusLock, true);
         document.body.classList.add('modal-open');
         
-        document.body.appendChild(this.backdrop);
+        document.body.appendChild(this._backdrop);
         document.body.offsetHeight; // force repaint
-        this.backdrop.classList.add('modal__backdrop--open');
-        this.backdrop.addEventListener('transitionend', handleModalShowing);
+        this._backdrop.classList.add('modal__backdrop--open');
+        this._backdrop.addEventListener('transitionend', handleModalShowing);
     }
 
     close() {
         const handleBackdropHiding = () => {
-            document.body.removeChild(this.backdrop);
+            document.body.removeChild(this._backdrop);
             document.body.classList.remove('modal-open');
-            this.node.style.display = 'none';
-            this.backdrop.removeEventListener('transitionend', handleBackdropHiding);
+            this._element.style.display = 'none';
+            this._backdrop.removeEventListener('transitionend', handleBackdropHiding);
         }
 
         const handleModalHiding = (e) => {
-            if (e.target === this.node) {
-                this.backdrop.classList.remove('modal__backdrop--open');
-                this.backdrop.addEventListener('transitionend', handleBackdropHiding);
-                this.node.removeEventListener('transitionend', handleModalHiding);
+            if (e.target === this._element) {
+                this._backdrop.classList.remove('modal__backdrop--open');
+                this._backdrop.addEventListener('transitionend', handleBackdropHiding);
+                this._element.removeEventListener('transitionend', handleModalHiding);
             }
         };
 
-        this.node.classList.remove('modal--show');
-        this.node.addEventListener('transitionend', handleModalHiding);
+        document.removeEventListener('focus', this._handleFocusLock, true);
+
+        this._element.classList.remove('modal--show');
+        this._element.addEventListener('transitionend', handleModalHiding);
+    }
+
+    _handleFocusLock(e) {
+        if (document !== e.target && this._element !== e.target && !this._element.contains(e.target)) {
+            this._element.focus();
+        }
     }
 }
