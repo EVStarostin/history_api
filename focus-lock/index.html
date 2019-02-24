@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .form--focus--locked {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" class="form">
+        <fieldset>
+            <legend>Форма не в фокусе</legend>
+            <label>Имя: <input type="text" name="name" id="name"></label>
+            <label>E-mail: <input type="text" name="email" id="email"></label>
+            <input type="submit" value="Отправить">
+        </fieldset>
+    </form>
+
+    <br>
+
+    <form id="form2" tabindex="-1" class="form form--focus--locked">
+        <label><input type="checkbox" name="focusLock" id="focusLock">Заблокировать фокус внутри формы</label>
+        <fieldset>
+            <legend>Форма в фокусе</legend>
+            <label>Имя: <input type="text" name="name" id="name"></label>
+            <label>E-mail: <input type="text" name="email" id="email"></label>
+            <input type="submit" value="Отправить">
+        </fieldset>
+    </form>
+
+    <script>
+        class Focus {
+            constructor(elem) {
+                this._elem = elem;
+                this._isLocked = false;
+                this._handleFocus = this._handleFocus.bind(this);
+            }
+
+            lock() {
+                if (this._isLocked) return;
+                this._isLocked = true;
+                document.addEventListener('focus', this._handleFocus, true);
+            }
+
+            unlock() {
+                if (!this._isLocked) return; 
+                this._isLocked = false;
+                document.removeEventListener('focus', this._handleFocus, true);
+            }
+
+            _handleFocus(e) {
+                if (!this._elem.contains(e.target)) this._elem.focus();
+            }
+        }
+
+        const trigger = document.getElementById('focusLock');
+        const form = document.getElementById('form2');
+        const formFocus = new Focus(form);
+
+        trigger.onchange = (e) => {
+            if (e.target.checked) formFocus.lock();
+            else formFocus.unlock();
+        }
+    </script>
+</body>
+</html>
