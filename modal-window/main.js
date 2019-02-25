@@ -44,10 +44,10 @@ class Modal extends Focus {
         this._backdrop.className = 'modal__backdrop';
         this._closeElements = this._modal.getElementsByClassName('modal__close');
 
-        this.init();
+        this._initCloseElements();
     }
 
-    init() {
+    _initCloseElements() {
         const handleCloseElementsClick = () => {
             this.close();
         }
