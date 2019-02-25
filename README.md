@@ -1,6 +1,6 @@
 # native-components
-
+## Модальное окно
 TODO:  
-- padding справа  
-- focus lock  
-- закрытие по нажатию Esc  
+- [ ] padding справа  
+- [x] focus lock  
+- [ ] закрытие по нажатию Esc  

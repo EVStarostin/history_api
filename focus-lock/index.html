@@ -55,7 +55,9 @@
             }
 
             _handleFocus(e) {
-                if (!this._elem.contains(e.target)) this._elem.focus();
+                if (document !== e.target && this._elem !== e.target && !this._elem.contains(e.target)) {
+                    this._elem.focus();
+                }
             }
         }
 

@@ -1,21 +1,48 @@
 document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
 
 function handleDOMContentLoaded() {
-    const modal = new Modal();
+    const modalNode = document.getElementById('modal');
+    const modal = new Modal(modalNode);
 
     document.getElementById('showModalBtn').onclick = () => {
         modal.open();
     }
 }
 
-class Modal {
-    constructor() {
-        this._element = document.getElementById('modal');
+class Focus {
+    constructor(elem) {
+        this._elem = elem;
+        this._isLocked = false;
+        this._handleFocus = this._handleFocus.bind(this);
+    }
+
+    lockFocus() {
+        if (this._isLocked) return;
+        this._isLocked = true;
+        document.addEventListener('focus', this._handleFocus, true);
+    }
+
+    unlockFocus() {
+        if (!this._isLocked) return; 
+        this._isLocked = false;
+        document.removeEventListener('focus', this._handleFocus, true);
+    }
+
+    _handleFocus(e) {
+        if (document !== e.target && this._elem !== e.target && !this._elem.contains(e.target)) {
+            this._elem.focus();
+        }
+    }
+}
+
+class Modal extends Focus {
+    constructor(modalNode) {
+        super(modalNode);
+
+        this._modal = modalNode;
         this._backdrop = document.createElement('div');
         this._backdrop.className = 'modal__backdrop';
-        this._closeElements = this._element.getElementsByClassName('modal__close');
-
-        this._handleFocusLock = this._handleFocusLock.bind(this);
+        this._closeElements = this._modal.getElementsByClassName('modal__close');
 
         this.init();
     }
@@ -40,19 +67,19 @@ class Modal {
             element.addEventListener('click', handleCloseElementsClick);
         }
 
-        this._element.addEventListener('click', handleBackdropClick);
+        this._modal.addEventListener('click', handleBackdropClick);
     }
 
     open() {
         const handleModalShowing = () => {
-            this._element.style.display = 'block';
+            this._modal.style.display = 'block';
             document.body.offsetHeight; // force repaint
-            this._element.focus();
-            this._element.classList.add('modal--show');
+            this._modal.focus();
+            this._modal.classList.add('modal--show');
             this._backdrop.removeEventListener('transitionend', handleModalShowing);
         };
 
-        document.addEventListener('focus', this._handleFocusLock, true);
+        this.lockFocus();
         document.body.classList.add('modal-open');
         
         document.body.appendChild(this._backdrop);
@@ -65,27 +92,21 @@ class Modal {
         const handleBackdropHiding = () => {
             document.body.removeChild(this._backdrop);
             document.body.classList.remove('modal-open');
-            this._element.style.display = 'none';
+            this._modal.style.display = 'none';
             this._backdrop.removeEventListener('transitionend', handleBackdropHiding);
         }
 
         const handleModalHiding = (e) => {
-            if (e.target === this._element) {
+            if (e.target === this._modal) {
                 this._backdrop.classList.remove('modal__backdrop--open');
                 this._backdrop.addEventListener('transitionend', handleBackdropHiding);
-                this._element.removeEventListener('transitionend', handleModalHiding);
+                this._modal.removeEventListener('transitionend', handleModalHiding);
             }
         };
 
-        document.removeEventListener('focus', this._handleFocusLock, true);
+        this.unlockFocus();
 
-        this._element.classList.remove('modal--show');
-        this._element.addEventListener('transitionend', handleModalHiding);
-    }
-
-    _handleFocusLock(e) {
-        if (document !== e.target && this._element !== e.target && !this._element.contains(e.target)) {
-            this._element.focus();
-        }
+        this._modal.classList.remove('modal--show');
+        this._modal.addEventListener('transitionend', handleModalHiding);
     }
 }
