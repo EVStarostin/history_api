@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        :root {
+            --primary-font-size: 1rem;
+            --primary-line-height: 1.5;
+        }
+
+        .text {
+            border: 1px solid magenta;
+            font-size: var(--primary-font-size);
+            line-height: var(--primary-line-height);
+            width: 400px;
+            height: calc(var(--primary-font-size) * var(--primary-line-height) * 3);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body>
+    <p class="text">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam illum sapiente modi. Illo laborum ab voluptatibus. Corporis, commodi maiores consequuntur quasi perferendis excepturi odit nam vero vitae, qui numquam debitis repudiandae assumenda id error quam quo facere beatae odio minima incidunt explicabo labore! Iusto voluptates pariatur illo dolor! Praesentium, animi.
+    </p>
+</body>
+</html>
