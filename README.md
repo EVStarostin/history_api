@@ -1,5 +1,5 @@
 # native-components
-[https://evstarostin.github.io/native-components/modal-window/](Модальное окно)
+[Модальное окно](https://evstarostin.github.io/native-components/modal-window/)
 TODO:  
 - [ ] padding справа  
 - [x] focus lock  
