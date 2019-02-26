@@ -7,3 +7,5 @@ TODO:
 - [ ] закрытие по нажатию Esc  
 - [ ] aria-hidden при закрытой модалки
 ## [Обрезка многострочного текста (css variables)](https://evstarostin.github.io/native-components/line-clamp/)  
+## [history api](https://evstarostin.github.io/native-components/history-api/)  
+## [Личная карточка](https://evstarostin.github.io/native-components/personal-card/)  
