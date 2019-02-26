@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>History API</title>
+    <style>
+        #btn {
+            position: fixed;
+            z-index: 1;
+            top: 10px;
+            left: 10px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+
+        .modal__content {
+            max-width: 500px;
+            margin: 30px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .modal--open {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">Модалка</button>
+
+    <div class="modal">
+        <div class="modal__content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat libero temporibus asperiores quis, perferendis consectetur est magnam aliquam velit sequi sed ab veniam quibusdam iure, quaerat porro vero ipsum, odio voluptas? Neque, autem excepturi. Excepturi illo molestias minima debitis, at voluptatum doloremque a dicta natus tenetur commodi assumenda officia est rerum quam facilis eos perspiciatis aliquid temporibus rem necessitatibus laboriosam unde voluptas et. Alias illum ea nostrum, nemo sint cumque obcaecati vitae cupiditate magni tempore iusto repellendus laborum nihil aliquid? Consequatur laboriosam repellendus ab accusantium iste, dolore a quasi tempora aliquam hic eum reprehenderit numquam consequuntur quam ducimus accusamus unde.</div>
+    </div>
+
+    <script>
+        const button = document.getElementById('btn');
+        const modal = document.querySelector('.modal');
+        const queryParam = new URLSearchParams(document.location.search).get("comments");
+        let isOpen = false;
+
+        if (queryParam) open(modal);
+
+        button.onclick = function() {
+            if (isOpen) {
+                close(modal);
+                history.replaceState(null, null, location.href.replace('&comments=1', ''));
+            } else {
+                open(modal);
+                history.replaceState(null, null, location.href + '&comments=1');
+            }
+        };
+
+        function open(elem) {
+            elem.classList.add('modal--open');
+            isOpen = true;
+        }
+
+        function close(elem) {
+            elem.classList.remove('modal--open');
+            isOpen = false;
+        }
+    </script>
+</body>
+</html>
