@@ -54,10 +54,10 @@
         button.onclick = function() {
             if (isOpen) {
                 close(modal);
-                history.replaceState(null, null, location.href.replace('&comments=1', ''));
+                history.replaceState(null, null, location.href.replace('?comments=1', ''));
             } else {
                 open(modal);
-                history.replaceState(null, null, location.href + '&comments=1');
+                history.replaceState(null, null, location.href + '?comments=1');
             }
         };
 
