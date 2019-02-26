@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Starostin Evgenii</title>
+
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            height: 100vh;
+            width: 100vw;
+            min-width: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: lavenderblush;
+            overflow: hidden;
+        }
+
+        .info {
+            box-sizing: border-box;
+            padding: 1rem 2rem;
+            background-color: lavender;
+            box-shadow: 0 0 1rem 0.5rem lavender, 0 0 1rem 0.5rem mediumaquamarine;
+            transform: scale(0.1) rotate(720deg);
+            opacity: 0;
+            transition: transform 1000ms ease-in-out, opacity 1300ms ease-in-out;
+        }
+
+        .info__name {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .info__specialization {
+            font-size: 1.2rem;
+            text-align: right;
+            margin-top: 0;
+            margin-bottom: 3rem;
+        }
+
+        .info__phone, .info__email {
+            font-size: 1.3rem;
+        }
+
+        .info__link {
+            text-decoration: none;
+            color: darkslateblue;
+        }
+
+        .info__link:hover {
+            color: royalblue;
+        }
+
+        .info__contacts {
+            display: table;
+        }
+
+        .info__phone, .info__email {
+            display: table-row;
+        }
+
+        .info__label, .info__link {
+            display: table-cell;
+            white-space: nowrap;
+        }
+
+        .info__label {
+            padding-right: 0.4rem;
+        }
+
+        .info__link {
+            padding: 0.4rem;
+        }
+
+        .info--opened {
+            transform: none;
+            opacity: 1;
+        }
+
+        @media (max-width: 576px) {
+            html {
+                font-size: 12px;
+            }
+
+            .info {
+                max-width: calc(100% - 4rem);
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="info" id="info">
+            <h1 class="info__name">Старостин Евгений Валерьевич</h1>
+            <p class="info__specialization"><em>front-end developer</em></p>
+            <div class="info__contacts">
+                <p class="info__phone"><span class="info__label">Тел.: </span><a class="info__link" href="tel:+1234567890">+79270996701</a></p>
+                <p class="info__email"><span class="info__label">E-mail: </span><a class="info__link" href="mailto:e.starostin89@gmail.com">e.starostin89@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const info = document.getElementById('info');
+
+        document.addEventListener("DOMContentLoaded", function(e) {
+            requestAnimationFrame(function() {
+                info.classList.add('info--opened');
+            });
+        });
+    </script>
+</body>
+</html>
