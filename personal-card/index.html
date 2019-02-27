@@ -9,16 +9,18 @@
     <style>
         html {
             font-size: 16px;
+            height: 100%;
         }
 
         body {
+            height: 100%;
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
         }
 
         .container {
-            height: 100vh;
-            width: 100vw;
+            height: 100%;
+            width: 100%;
             min-width: 320px;
             display: flex;
             justify-content: center;
@@ -40,14 +42,14 @@
         .info__name {
             font-size: 1.5rem;
             margin-top: 0;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .info__specialization {
             font-size: 1.2rem;
             text-align: right;
             margin-top: 0;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .info__phone, .info__email {
@@ -81,7 +83,7 @@
         }
 
         .info__link {
-            padding: 0.4rem;
+            padding: 0.2rem 0.4rem;
         }
 
         .info--opened {
@@ -105,10 +107,10 @@
 <body>
     <div class="container">
         <div class="info" id="info">
-            <h1 class="info__name">Старостин Евгений Валерьевич</h1>
+            <h1 class="info__name">Старостин Евгений</h1>
             <p class="info__specialization"><em>front-end developer</em></p>
             <div class="info__contacts">
-                <p class="info__phone"><span class="info__label">Тел.: </span><a class="info__link" href="tel:+1234567890">+79270996701</a></p>
+                <p class="info__phone"><span class="info__label">Тел.: </span><a class="info__link" href="tel:+79270996701">+79270996701</a></p>
                 <p class="info__email"><span class="info__label">E-mail: </span><a class="info__link" href="mailto:e.starostin89@gmail.com">e.starostin89@gmail.com</a></p>
             </div>
         </div>
