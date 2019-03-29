@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sticky header</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .content {
+            height: 2000px;
+        }
+
+        .advert {
+            height: 60px;
+        }
+
+        .menu {
+            height: 40px;
+            background: red;
+            width: 100%;
+        }
+
+        .menu--sticky {
+            position: fixed;
+            top: 0;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="advert"></div>
+            <div class="menu"></div>
+            <div class="content"></div>
+        </div>
+    </div>
+    <script>
+        const elem = document.querySelector('.menu');
+        const elemTop = elem.getBoundingClientRect().top + window.pageYOffset;
+
+        document.addEventListener('scroll', function(e) {
+            if (window.pageYOffset > elemTop) {
+                elem.classList.add('menu--sticky');
+            } else {
+                elem.classList.remove('menu--sticky');
+            }
+        })
+    </script>
+</body>
+</html>
